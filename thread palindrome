@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <pthread.h>
+
+int global[1];
+
+void *add(void *arg)
+{
+	int *arr;
+	int num,rem,temp;
+	int sum=0,rev=0;
+
+	arr=arg;
+	num=arr[0];
+	temp=num;
+	while(num>0)
+	{
+	    rem=num%10;
+	    rev=rem+(rev*10);
+	    num=num/10;
+	}
+	
+	if(rev==temp)
+	{
+	    printf("%d is a palindrome", temp);
+	}
+	else
+	{
+	    printf("%d is not a palindrome" , temp);
+	}
+	
+
+	return NULL;
+}
+ int main()
+{
+	printf("Enter the number: ");
+	scanf("%d",&global[0]);
+
+
+
+	pthread_t palindrome;
+	pthread_create(&palindrome,NULL,add,global);
+	pthread_join(palindrome,NULL);
+
+	return 0;
+
+}
