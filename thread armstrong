@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <pthread.h>
+
+int global[1];
+void *arm(void *arg)
+{
+    int num,rem,temp;
+    int value=0;
+    int *arr;
+    arr=arg;
+    num=arr[0];
+    temp=num;
+    
+    
+    while(num>0)
+    {
+        rem=num%10;
+        value=value+(rem*rem*rem);
+        num=num/10;
+    }
+    
+    if(temp==value)
+    {
+        printf("%d is an Armstrong number",value);
+        
+    }
+    else 
+    {
+        printf("%d is not an Armstrong number",value);
+    }
+    return NULL;
+}
+
+
+int main()
+{
+    printf("Enter the number :");
+    scanf("%d",&global[0]);
+    
+    pthread_t armstrong;
+    pthread_create(&armstrong,NULL,arm,global);
+    pthread_join(armstrong,NULL);
+}
