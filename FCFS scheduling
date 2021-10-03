@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+int main()
+{
+    int at[20],bt[20],ct[20]={0};
+    int tat[20]={0},wt[20]={0};
+    int n,i,j,k;
+    float Ttat=0,Twt=0,sum=0;
+    
+    printf("Enter the number of process :");
+    scanf("%d",&n);
+    
+    printf("Enter the arrival time and burst time for each process\n\n");
+    for(i=0;i<n;i++)
+    {
+        printf("Arrival time of process[%d] :",i+1);
+        scanf("%d",&at[i]);
+        printf("Burst time of process[%d] :",i+1);
+        scanf("%d",&bt[i]);
+        printf("\n");
+    }
+    
+    for(j=0;j<n;j++)
+    {
+        sum=sum+bt[j];
+        ct[j]=ct[j]+sum;
+    }
+    
+    for(k=0;k<n;k++)
+    {
+       tat[k]=ct[k]-at[k];
+       Ttat=Ttat+tat[k];
+    }
+    
+    for(k=0;k<n;k++)
+    {
+        wt[k]=tat[k]-bt[k];
+        Twt=Twt+wt[k];
+    }
+    
+    printf("Solution : \n\n");
+    printf("P#\t At\t Bt\t Ct\t Tat\t Wt\t\n\n");
+    
+    for(i=0;i<n;i++)
+    {
+        
+    printf("P%d\t %d\t %d\t %d\t %d\t %d\t",i+1,at[i],bt[i],ct[i],tat[i],wt[i]);
+    }
+    
+    printf("\n\n Average Turn Around time = %f\n",Ttat/n);
+    printf("\n\n Average Waiting Time = %f\n",Twt/n);
+    return 0;
+    
+}
